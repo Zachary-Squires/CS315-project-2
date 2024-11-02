@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dewyn5as4inkm"]
+
+[ext_resource type="Script" path="res://StartGame.gd" id="1_5s5pc"]
+[ext_resource type="Texture2D" uid="uid://blefagjpobpyl" path="res://sky.jpg" id="2_8i628"]
+
+[node name="menu" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+z_index = 1
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1162.0
+offset_bottom = 639.0
+
+[node name="Label" type="Label" parent="Control"]
+y_sort_enabled = true
+layout_mode = 0
+offset_left = 110.0
+offset_top = 61.0
+offset_right = 289.0
+offset_bottom = 103.0
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Epic Jumping Simulator"
+
+[node name="btnPlay" type="Button" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+offset_left = 182.0
+offset_top = 141.0
+offset_right = 404.0
+offset_bottom = 199.0
+text = "Begin"
+script = ExtResource("1_5s5pc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+z_as_relative = false
+offset_right = 569.0
+offset_bottom = 313.0
+mouse_filter = 2
+texture = ExtResource("2_8i628")
+expand_mode = 1
+
+[connection signal="pressed" from="btnPlay" to="btnPlay" method="_on_pressed"]

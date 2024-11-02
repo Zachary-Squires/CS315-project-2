@@ -1,0 +1,217 @@
+[gd_scene load_steps=22 format=4 uid="uid://d3wqdbwye6xmj"]
+
+[ext_resource type="Script" path="res://game_controller.gd" id="1_64bpc"]
+[ext_resource type="Script" path="res://Player.gd" id="2_2fw8f"]
+[ext_resource type="Texture2D" uid="uid://gf8hkgjjtg1a" path="res://prototyping_assets/Characters/character_0000.png" id="3_1xlpw"]
+[ext_resource type="Texture2D" uid="uid://c8eq5atbpqvjl" path="res://prototyping_assets/Characters/character_0001.png" id="4_q7cdh"]
+[ext_resource type="Script" path="res://label.gd" id="5_wpltd"]
+[ext_resource type="AudioStream" uid="uid://b2bca5nhjy6gk" path="res://footstep_grass_001.ogg" id="6_ihfim"]
+[ext_resource type="AudioStream" uid="uid://b7mfhri0r3q2j" path="res://jump.wav" id="7_ew04p"]
+[ext_resource type="AudioStream" uid="uid://iqfjrft7vmd7" path="res://Ludum Dare 38 - Track 2.wav" id="8_ut47m"]
+[ext_resource type="PackedScene" uid="uid://wokgixou3e57" path="res://diamond.tscn" id="9_1y3f6"]
+[ext_resource type="TileSet" uid="uid://mliyyuu4vpdo" path="res://prototyping_assets/prototyping_tile_set.tres" id="10_2n8hl"]
+[ext_resource type="PackedScene" uid="uid://cwp656mb7j0" path="res://key.tscn" id="11_7ji1u"]
+[ext_resource type="PackedScene" uid="uid://d3iirrbmo037l" path="res://door.tscn" id="12_kv6kh"]
+[ext_resource type="PackedScene" uid="uid://jhptmxarn8gy" path="res://ladder.tscn" id="13_cv0gh"]
+[ext_resource type="Script" path="res://npc.gd" id="14_4nm08"]
+[ext_resource type="Texture2D" uid="uid://0ifatw3cblwb" path="res://prototyping_assets/Characters/character_0002.png" id="15_yla4k"]
+[ext_resource type="Texture2D" uid="uid://blefagjpobpyl" path="res://sky.jpg" id="16_fbuxg"]
+[ext_resource type="Script" path="res://deadzone.gd" id="17_ccrdk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a0mba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1xlpw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1xlpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_q7cdh")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p2bub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfpbs"]
+size = Vector2(43, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1il1"]
+size = Vector2(2164, 36)
+
+[node name="Game Controller 2" type="Node2D"]
+script = ExtResource("1_64bpc")
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+script = ExtResource("2_2fw8f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_a0mba")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_p2bub")
+
+[node name="Label" type="Label" parent="Player"]
+offset_left = -6.0
+offset_top = -41.0
+offset_right = 34.0
+offset_bottom = -18.0
+script = ExtResource("5_wpltd")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="walk" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("6_ihfim")
+parameters/looping = true
+
+[node name="jump" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("7_ew04p")
+
+[node name="bgm" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("8_ut47m")
+autoplay = true
+
+[node name="Diamond" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(167, -29)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(10, 0)
+tile_map_data = PackedByteArray("AAD6/wUAAAAAAAQAAAD8/wUAAAAAAAQAAAD+/wUAAAAAAAQAAAAAAAUAAAAAAAQAAAACAAUAAAAAAAQAAAAEAAUAAAAAAAQAAAAIAP//AAAAAAQAAAAJAP//AAAAAAQAAAAKAP//AAAAAAQAAAAMAP3/AAAAAAQAAAAPAPr/AAAAAAQAAAASAPj/AAAAAAQAAAAVAPb/AAAAAAQAAAAYAPT/AAAAAAQAAAAbAPH/AAAAAAQAAAAcAPH/AAAAAAQAAAAdAPH/AAAAAAQAAAAeAPH/AAAAAAQAAAAfAPH/AAAAAAQAAAAgAPH/AAAAAAQAAAAhAPH/AAAAAAQAAAADAAUAAAAAAAMAAAABAAUAAAAAAAMAAAD//wUAAAAAAAMAAAD9/wUAAAAAAAMAAAD7/wUAAAAAAAMAAAArAOf/AAAAAAQAAAAsAOf/AAAAAAQAAAAtAOf/AAAAAAQAAAAuAOf/AAAAAAQAAAAvAOf/AAAAAAQAAAAwAOf/AAAAAAQAAAAzAOf/AAAAAAQAAAA1AOf/AAAAAAQAAAA3AOf/AAAAAAQAAAA5AOf/AAAAAAQAAAA7AOf/AAAAAAQAAAA9AOf/AAAAAAQAAAA/AOf/AAAAAAQAAABBAOf/AAAAAAQAAABDAOf/AAAAAAQAAABCAOf/AAAAAAQAAABEAA8AAAAAAAMAAABBAA8AAAAAAAMAAABCAA8AAAAAAAMAAABDAA8AAAAAAAMAAABFAA8AAAAAAAMAAABGAA8AAAAAAAMAAABHAA8AAAAAAAMAAAAGAA0AAAAAAAMAAAAHAA0AAAAAAAMAAAAIAA0AAAAAAAMAAAAJAA0AAAAAAAMAAABIAA4AAAAAAAMAAABIAA0AAAAAAAMAAABJAAwAAAAAAAMAAABJAAsAAAAAAAMAAABKAAoAAAAAAAMAAABKAAkAAAAAAAMAAABLAAgAAAAAAAMAAABLAAcAAAAAAAMAAABMAAYAAAAAAAMAAABMAAUAAAAAAAMAAAALAA8AAAAAAAMAAAANABEAAAAAAAMAAAAPABMAAAAAAAMAAAARABUAAAAAAAMAAAATABcAAAAAAAMAAAAVABkAAAAAAAMAAAAiABkAAAAAAAMAAAAkABkAAAAAAAMAAAAmABkAAAAAAAMAAAAoABgAAAAAAAMAAAAqABYAAAAAAAMAAAAsABQAAAAAAAMAAAAuABIAAAAAAAMAAAAwABEAAAAAAAMAAAAxABEAAAAAAAMAAAAzABEAAAAAAAMAAAA0ABEAAAAAAAMAAAA2ABEAAAAAAAMAAAA3ABEAAAAAAAMAAAA6ABEAAAAAAAMAAAA7ABEAAAAAAAMAAAA9ABEAAAAAAAMAAAA+ABEAAAAAAAMAAABBAAwAAAAAAAIAAABBAAsAAAAAAAIAAABBAAoAAAAAAAIAAABBAAkAAAAAAAIAAABBAAgAAAAAAAIAAABBAAcAAAAAAAIAAAA/ABQAAAAAAAIAAABAABQAAAAAAAIAAABCABQAAAAAAAIAAABDABQAAAAAAAIAAABFABQAAAAAAAIAAABGABQAAAAAAAIAAAAjAO//AAAAAAQAAAAmAO3/AAAAAAQAAAAgABoAAAAAAAMAAAA=")
+tile_set = ExtResource("10_2n8hl")
+use_kinematic_bodies = true
+
+[node name="Key" parent="." instance=ExtResource("11_7ji1u")]
+position = Vector2(1135, 308)
+
+[node name="Door" parent="." instance=ExtResource("12_kv6kh")]
+position = Vector2(1058, 223)
+
+[node name="Ladder" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(125, -10)
+
+[node name="Ladder2" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(125, 8)
+
+[node name="Ladder3" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(125, 26)
+
+[node name="npc" type="Area2D" parent="."]
+position = Vector2(79, 67)
+script = ExtResource("14_4nm08")
+
+[node name="NpcLabel" type="Label" parent="npc"]
+visible = false
+offset_left = -97.0
+offset_top = -25.0
+offset_right = 95.0
+offset_bottom = -7.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+text = "\"You still need five gems, there are five above me and below me, pick your path!\""
+
+[node name="Sprite2D" type="Sprite2D" parent="npc"]
+texture = ExtResource("15_yla4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="npc"]
+position = Vector2(0.5, -5.5)
+shape = SubResource("RectangleShape2D_wfpbs")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+z_as_relative = false
+offset_left = -440.0
+offset_top = -729.0
+offset_right = 1617.0
+offset_bottom = 602.0
+mouse_filter = 2
+texture = ExtResource("16_fbuxg")
+
+[node name="Diamond2" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(537, -249)
+
+[node name="Ladder4" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(641, -373)
+
+[node name="Ladder5" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(619, -350)
+
+[node name="Ladder6" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(668, -396)
+
+[node name="Diamond3" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(790, -413)
+
+[node name="Diamond4" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(1072, -410)
+
+[node name="Diamond5" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(1107, 231)
+
+[node name="npc2" type="Area2D" parent="."]
+position = Vector2(1094, -411)
+script = ExtResource("14_4nm08")
+
+[node name="NpcLabel" type="Label" parent="npc2"]
+visible = false
+offset_left = -25.0
+offset_top = -29.0
+offset_right = 167.0
+offset_bottom = -11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+text = "\"Leap of faith!\""
+
+[node name="Sprite2D" type="Sprite2D" parent="npc2"]
+texture = ExtResource("15_yla4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="npc2"]
+position = Vector2(0.5, -5.5)
+shape = SubResource("RectangleShape2D_wfpbs")
+
+[node name="Ladder7" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(399, 413)
+
+[node name="Ladder8" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(449, 413)
+
+[node name="Ladder9" parent="." instance=ExtResource("13_cv0gh")]
+position = Vector2(493, 414)
+
+[node name="Deadzone" type="Area2D" parent="."]
+position = Vector2(-71, 617)
+script = ExtResource("17_ccrdk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deadzone"]
+position = Vector2(631, -133)
+shape = SubResource("RectangleShape2D_a1il1")
+
+[node name="Diamond6" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(952, 260)
+
+[node name="Diamond7" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(660, 374)
+
+[node name="Diamond8" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(449, 389)
+
+[node name="Diamond9" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(291, 327)
+
+[node name="Diamond10" parent="." instance=ExtResource("9_1y3f6")]
+position = Vector2(139, 197)
+
+[connection signal="body_entered" from="npc" to="npc" method="_on_body_entered"]
+[connection signal="body_exited" from="npc" to="npc" method="_on_body_exited"]
+[connection signal="body_entered" from="npc2" to="npc2" method="_on_body_entered"]
+[connection signal="body_exited" from="npc2" to="npc2" method="_on_body_exited"]
+[connection signal="body_entered" from="Deadzone" to="Deadzone" method="_on_body_entered"]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://jhptmxarn8gy"]
+
+[ext_resource type="Script" path="res://ladder.gd" id="1_y4hdu"]
+[ext_resource type="Texture2D" uid="uid://brxl507phfjks" path="res://prototyping_assets/item/tile_0071.png" id="2_83j3f"]
+[ext_resource type="AudioStream" uid="uid://mk7etk0cxl45" path="res://footstep_wood_000.ogg" id="3_j72r8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4o4x"]
+
+[node name="Ladder" type="Area2D"]
+position = Vector2(-72, 102)
+script = ExtResource("1_y4hdu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d4o4x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_83j3f")
+
+[node name="climb" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_j72r8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
